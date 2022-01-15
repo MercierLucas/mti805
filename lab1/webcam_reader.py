@@ -1,6 +1,6 @@
 import cv2
 
-from fps_counter import FPS
+from utils import FPS
 
 
 def display_webcam(transform=None):

@@ -1,5 +1,11 @@
 *.pyc
 
+*.png
+*.jpg
+
 .vscode/
 
 __pycache__/
+
+*.xml
+*.t7

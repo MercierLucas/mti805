@@ -16,7 +16,18 @@ class FaceDetector:
         return inside_pos
 
 
-    def face_detection(self, img):
+    def face_detection(self, img, return_pos):
+        faces = self.face_cascade.detectMultiScale(img, 1.3, 5)
+        regions = []
+        for (x, y, w, h) in faces:
+            regions.append(img[y:y+h, x:x+w])
+
+        if return_pos:
+            return regions, faces
+        return regions
+
+
+    def detect_and_add_shapes(self, img):
         # improvements: delete boxes that just appeared
         gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
         faces = self.face_cascade.detectMultiScale(img, 1.3, 5)
