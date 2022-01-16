@@ -1,8 +1,12 @@
 import cv2
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def add_rectangles(img, rectangles, color=(255, 0, 0), label=None):
+    if color == 'random':
+        color = list(np.random.random(size=3) * 256)
+        
     for (x, y, w, h) in rectangles:
         img = cv2.rectangle(img, (x, y), (x+w, y+h), color, 10)
         if label is not None:
