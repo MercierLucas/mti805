@@ -23,7 +23,7 @@ class FaceEmbedder:
 
     def forward(self, image):
         blob = cv2.dnn.blobFromImage(image, 1.0 / 255,
-				(96, 96), (0, 0, 0), swapRB=True, crop=False)
+				(96, 96), (0, 0, 0), swapRB=False, crop=False)
         self.embedder.setInput(blob)
         embedding = self.embedder.forward()
         return embedding

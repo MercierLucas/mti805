@@ -19,6 +19,7 @@ class Dataset:
             if self.verbose:
                 print(f'Processing {(i + 1)}/{n_images}')
             image = cv2.imread(path)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             name =  os.path.dirname(path).split('\\')[-1]
             labels.append(name)
             images.append(image)
