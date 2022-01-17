@@ -8,9 +8,12 @@ class FaceID:
         self.encoder = FaceEncoder(pickle_path)
         
 
-    def train(self, dataset):
+    def train(self, dataset, save_path=None):
         self.embedder.extract_from_dataset(dataset)
         self.encoder.train(self.embedder.embeddings, self.embedder.labels)
+
+        if save_path is not None:
+            self.save(save_path)
 
     
     def save(self, pickle_path):

@@ -18,15 +18,18 @@ class FaceTracking:
         self.colors[label] = list(np.random.random(size=3) * 256)
         return self.colors[label]
     
-    def track(self, image):
-        faces, pos = self.face_detector.face_detection(image, return_pos=True)
+
+    def track(self, image, verbose=True):
+        faces, positions = self.face_detector.face_detection(image, return_pos=True)
         if len(faces) == 0:
             return image
 
-        for face in faces:
+        for face, pos in zip(faces, positions):
             prob, label_pred = self.faceid.recognize(face)
+            if verbose:
+                print(f'Pred: {label_pred} {prob}')
             prob *= 100
-            image = add_rectangles(image, pos, label=f'{label_pred}: {prob:.0f}%', color=self._get_matching_color(label_pred))
+            image = add_rectangles(image, [pos], label=f'{label_pred}: {prob:.0f}%', color=self._get_matching_color(label_pred))
         return image
 
 

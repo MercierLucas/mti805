@@ -4,47 +4,35 @@ from argparse import ArgumentParser
 from face_detector import FaceDetector
 from faceid import FaceID
 from face_tracking import FaceTracking
-from utils import show_image, add_rectangles, Dataset
+from utils import show_image, Dataset, load_image
 from webcam_reader import display_webcam
 
 
 def train(args):
     faceid = FaceID(args['weights_dir'])
     dataset = Dataset(args['dataset'])
-    faceid.train(dataset)
-    faceid.save(args['pickle_dir'])
+    faceid.train(dataset, save_path=args['pickle_dir'])
 
 
 def recognize(args):
     detector = FaceDetector(args['weights_dir'])
-
-    dataset = Dataset(args['dataset'])
-    image, label_real = dataset[0]
-
-    faces, pos = detector.face_detection(img=image, return_pos=True)
-    if len(faces) == 0:
-        print('No faces detected, skipping id')
-        return
-
     faceid = FaceID(args['weights_dir'], args['pickle_dir'])
+    face_tracker = FaceTracking(detector, faceid)
 
-    prob, label_pred = faceid.recognize(image)
-    print(f'Pred: {label_pred} {prob} | Real: {label_real}')
+    image = load_image(args['input'])
 
-    img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    prob *= 100
-    img = add_rectangles(img, pos, label=f'{label_pred}: {prob:.0f}%')
-    show_image(img)
+    image = face_tracker.track(image, verbose=True)
+    show_image(image)
 
 
 def get_parsed_args() -> ArgumentParser:
     argparser = ArgumentParser()
-    argparser.add_argument("--faceid_only", dest='faceid_only', action="store_true", help="Only use faceid, or also include face detector")
-    argparser.add_argument("--action", required=True, help="train or identify")
-    argparser.add_argument("--dataset", help='path to input dir')
+    argparser.add_argument("--add_detector", dest='add_detector', action="store_true", help="Add face detector or not, if not faceid on the entire image")
+    argparser.add_argument("--faceid_action", required=True, help="train or identify")
+    argparser.add_argument("--input", required=True, help="'webcam' or a path to an image")
+    argparser.add_argument("--dataset", help='Path to input dir')
     argparser.add_argument("--pickle_dir", help='Path to pickle directory')
     argparser.add_argument("--weights_dir", help='Path to weights directory')
-    argparser.add_argument("--conf", default=.5, help='conf threshold')
 
     return argparser
     
@@ -59,18 +47,27 @@ def detection_and_identification(args):
     faceid = FaceID(args['weights_dir'], args['pickle_dir'])
 
     face_tracker = FaceTracking(detector, faceid)
-    display_webcam(face_tracker.track)
+
+    if args['input'] == 'webcam':
+        display_webcam(face_tracker.track)
+    else:
+        image = load_image(args['input'])
+        image = face_tracker.track(image)
+        show_image(image)
+
 
 
 if __name__ == '__main__':
     parser = get_parsed_args()
     args = vars(parser.parse_args())
 
-    if args['faceid_only']:
-        if args['action'] == 'train':
+    if not args['add_detector']:
+        assert args['input'] != 'webcam', 'Webcam can\'t be used without face detector'
+
+        if args['faceid_action'] == 'train':
             train(args)
         
-        elif args['action'] == 'identify':
+        elif args['faceid_action'] == 'identify':
             recognize(args)
 
     else:

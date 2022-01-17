@@ -6,14 +6,21 @@ import numpy as np
 def add_rectangles(img, rectangles, color=(255, 0, 0), label=None):
     if color == 'random':
         color = list(np.random.random(size=3) * 256)
+
+    size, thickness = _compute_text_misc(img)
         
     for (x, y, w, h) in rectangles:
-        img = cv2.rectangle(img, (x, y), (x+w, y+h), color, 10)
+        img = cv2.rectangle(img, (x, y), (x + w, y + h), color, thickness*2)
         if label is not None:
-            img = cv2.putText(img, label, (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 5, color, 5, 2)
+            img = cv2.putText(img, label, (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, size, color, thickness, 2)
     return img
 
 
+def _compute_text_misc(img):
+    h, w = img.shape[:2]
+    font_size = min(h, w) * 0.0025      # ratio from tests
+    thickness = 2
+    return font_size, thickness
 
 
 def show_image(img, title='', to_rgb=False, size=None):

@@ -1,7 +1,36 @@
 # Lab 1: face id
 
 
-Example:
+## Usage
+
+### Train
 ```bash
-python 'c:\Users\Lucas\Desktop\dev\ets\mti805\lab1\main.py' '--action' 'train' '--dataset' 'C:\Users\Lucas\Desktop\dev\ets\mti805\lab1\dataset' '--pickle_dir' 'C:\Users\Lucas\Desktop\dev\ets\mti805\lab1\pickle' '--weights' 'C:\Users\Lucas\Desktop\dev\ets\mti805\lab1\weights' '--conf' '.5' 
+python main.py \\
+    '--faceid_action' 'train' \\
+    '--dataset' 'dataset' \\
+    '--pickle_dir' 'pickle' \\
+    '--weights' 'weights'
+```
+
+
+### Inference (only faceid)
+```bash
+python main.py \\
+    '--faceid_action' 'recognize' \\
+    '--input' 'test/sample.jpg' \\
+    '--dataset' 'dataset' \\
+    '--pickle_dir' 'pickle' \\
+    '--weights' 'weights'
+```
+
+### Inference
+In this case input can be *webcam* or a path to an image
+```bash
+python main.py \\
+    '--faceid_action' 'recognize' \\
+    '--add_detector' \\
+    '--input' 'test/sample.jpg' \\
+    '--dataset' 'dataset' \\
+    '--pickle_dir' 'pickle' \\
+    '--weights' 'weights'
 ```
