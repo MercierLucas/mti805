@@ -6,31 +6,33 @@
 ### Train
 ```bash
 python main.py \\
-    '--faceid_action' 'train' \\
-    '--dataset' 'dataset' \\
+    '--action' 'train' \\
+    '--input' 'dataset' \\
     '--pickle_dir' 'pickle' \\
     '--weights' 'weights'
 ```
 
 
-### Inference (only faceid)
+### Inference (only detection)
 ```bash
 python main.py \\
-    '--faceid_action' 'recognize' \\
-    '--input' 'test/sample.jpg' \\
-    '--dataset' 'dataset' \\
+    '--action' 'face_detection' \\
+    '--input' 'webcam' \\
     '--pickle_dir' 'pickle' \\
     '--weights' 'weights'
 ```
 
-### Inference
+### Inference (detection and identification)
 In this case input can be *webcam* or a path to an image
 ```bash
 python main.py \\
-    '--faceid_action' 'recognize' \\
-    '--add_detector' \\
-    '--input' 'test/sample.jpg' \\
-    '--dataset' 'dataset' \\
+    '--action' 'detect_and_id' \\
+    '--input' 'webcam' \\
     '--pickle_dir' 'pickle' \\
     '--weights' 'weights'
 ```
+
+## Weights
+Weights can be found here:
+- [XML files for CascadeClassifier](https://github.com/opencv/opencv/tree/master/data/haarcascades)
+- [Torch weights trained on OpenFace](https://github.com/pyannote/pyannote-data)

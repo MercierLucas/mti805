@@ -1,13 +1,17 @@
 import cv2
 import os
 
-from utils.loader import list_files_in_dir_recursive
+from utils.loader import list_files_in_dir_recursive, resize, list_files
 
 class Dataset:
 
-    def __init__(self, dataset_dir, verbose=False) -> None:
+    def __init__(self, dataset_dir, verbose=False, recursive=True) -> None:
+        self.recursive = recursive
         self.verbose = verbose
-        images_path = list_files_in_dir_recursive(dataset_dir)
+        if recursive:
+            images_path = list_files_in_dir_recursive(dataset_dir)
+        else:
+            images_path = list_files(dataset_dir)
         self.images, self.labels = self._load(images_path)
         
 
@@ -19,8 +23,12 @@ class Dataset:
             if self.verbose:
                 print(f'Processing {(i + 1)}/{n_images}')
             image = cv2.imread(path)
+            image = resize(image, width=600)
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            name =  os.path.dirname(path).split('\\')[-1]
+            if self.recursive:
+                name =  os.path.dirname(path).split('\\')[-1]
+            else:
+                name = path.split('\\')[-1].split('.')[0]
             labels.append(name)
             images.append(image)
 
