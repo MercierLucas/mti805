@@ -38,6 +38,7 @@ def load_image(img_path):
 
 
 def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
+    # from https://github.com/PyImageSearch/imutils
     # initialize the dimensions of the image to be resized and
     # grab the image size
     dim = None
