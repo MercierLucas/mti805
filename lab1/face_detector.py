@@ -85,8 +85,9 @@ class FaceDetector:
         profile = self.profile_cascade.detectMultiScale(img, 1.3, 5)
         faces = self._stack_face_detections(faces, profile)
 
+        img = add_rectangles(img, faces, color=(255, 0, 0))
         for (x, y, w, h) in faces:
-            img = cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            #img = #cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
             region = img[y: y + h, x: x + w]
             gray_region = gray[y: y + h, x: x + w]
             eyes = self._detect_in_region(gray_region, self.eye_cascade, x, y, max_items=10, portion='upper')

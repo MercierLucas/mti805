@@ -29,7 +29,7 @@ def add_border(img, is_correct):
 def _compute_text_misc(img):
     h, w = img.shape[:2]
     font_size = min(h, w) * 0.0025      # ratio from tests
-    thickness = 2
+    thickness = 5
     return font_size, thickness
 
 
