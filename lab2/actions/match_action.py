@@ -1,5 +1,5 @@
 from .action import Action
-from feature_detector import FeatureDetector
+from feature_detectors import FeatureDetectorManager
 
 
 
@@ -9,6 +9,7 @@ class MatchAction(Action):
 
     
     def perform(self):
-        detector = FeatureDetector(method='orb')
-        match_image = detector.match(self.input[0], self.input[1], top_k=50)
-        self.show_result(match_image)
+        print('tobedone')
+        #detector = FeatureDetectorManager(detector='harris')
+        #match_image = detector.match(self.input[0], self.input[1], top_k=50)
+        #self.show_result(match_image)

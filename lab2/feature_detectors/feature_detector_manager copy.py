@@ -1,13 +1,19 @@
 import cv2
+from .harris import HarrisCornerDetector
 
 """
 Mainly from:
     https://docs.opencv.org/3.4/dc/dc3/tutorial_py_matcher.html
 """
-class FeatureDetector:
+
+class FeatureDetectorManager:
     methods = {
         'sift': cv2.SIFT_create,
-        'orb': cv2.ORB_create
+        'orb': cv2.ORB_create,
+    }
+
+    detectors = {
+        'harris': HarrisCornerDetector
     }
 
     def __init__(self, method = 'sift') -> None:

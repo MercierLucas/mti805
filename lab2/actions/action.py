@@ -28,11 +28,13 @@ class Action:
         raise NotImplementedError
 
 
-    def show_result(self, result):
+    def show_result(self, result, title=None):
         if isinstance(result, list):
-            show_images(result, [str(i) for i in range(len(result))])
+            titles = title if title is not None else [str(i) for i in range(len(result))]
+            show_images(result, titles)
             return
-        show_image(result, 'result')
+        title = title if title is not None else 'Result'
+        show_image(result, title)
 
 
     def load_input(self):
