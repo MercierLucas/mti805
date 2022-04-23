@@ -1,0 +1,8 @@
+{
+    "SVClinear": {
+        "train_time": 19.64704918861389
+    },
+    "SVCrbf": {
+        "train_time": 32.75609850883484
+    }
+}

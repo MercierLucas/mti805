@@ -1,0 +1,19 @@
+{
+    "both": {
+        "bncnn_both": 0.8710659146308899,
+        "lenet_both": 0.8614633679389954
+    },
+    "custom": {
+        "bncnn_letters": 1.0,
+        "lenet_letters": 0.9615384340286255
+    },
+    "emnist_letters": {
+        "bncnn_letters": 0.9448077082633972,
+        "lenet_letters": 0.9016346335411072
+    },
+    "mnist": {
+        "bncnn_mnist": 0.9743000268936157,
+        "lenet": 0.9779000282287598,
+        "MnistSimpleCNN": 0.991
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "both": {
+        "bncnn_both": 0.8710659146308899,
+        "lenet_both": 0.8614633679389954
+    },
+    "custom": {
+        "SVClinear": 0.5,
+        "SVCrbf": 0.6153846153846154,
+        "bncnn_letters": 1.0,
+        "lenet_letters": 0.9615384340286255
+    },
+    "emnist_letters": {
+        "SVClinear": 0.7191636293880683,
+        "SVCrbf": 0.8131594091693842,
+        "bncnn_letters": 0.9453290104866028,
+        "lenet_letters": 0.9024553894996643
+    },
+    "mnist": {
+        "SVClinear": 0.8820895522388059,
+        "SVCrbf": 0.9328358208955224,
+        "bncnn_mnist": 0.9706467390060425,
+        "lenet": 0.9696517586708069
+    }
+}
