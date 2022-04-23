@@ -11,7 +11,7 @@ Mainly from:
 
 class FeatureDetectorManager:
     detectors = {
-        'harris': HarrisCornerDetector,
+        #'harris': HarrisCornerDetector,
         'sift': SIFT,
         'orb': ORB,
         'hog': HOG
